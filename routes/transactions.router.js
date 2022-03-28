@@ -1,13 +1,13 @@
 const express = require("express");
-//const { getAllBarang, getBarangByID, addBarang } = require('../controllers/barang.controller');
+const {
+  getData,
+  addData,
+  deleteData,
+} = require("../controllers/transactions.controller");
 const router = express.Router();
 
-//const barang = require('../models/Barang')
-
-// router.get("/", getAllBarang)
-
-// router.get("/:id", getBarangByID)
-
-// router.post("/", addBarang)
+router.get("/", getData);
+router.post("/", addData);
+router.delete("/:id", deleteData);
 
 module.exports = router;
