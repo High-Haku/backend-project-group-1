@@ -15,8 +15,9 @@ mongoose
     console.log(error);
   });
 
-const allRouter = require("./routes");
 app.use(express.json());
+
+const allRouter = require("./routes");
 app.use(allRouter);
 
 app.listen(port, () => {
