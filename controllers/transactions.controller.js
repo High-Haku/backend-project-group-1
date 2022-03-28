@@ -36,6 +36,13 @@ const deleteData = async (req, res) => {
   console.log(data);
   Transactions.deleteOne({ _id: req.params.id })
     .then(() => {
+      if (data === null)
+        return res.status(404).json({
+          msg: "delete failed",
+          err: "data already deleted",
+          data,
+        });
+
       res.json({
         msg: "delete success",
         err: null,

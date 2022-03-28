@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login</title>
+  </head>
+  <body class="bg-slate-800 flex justify-center items-center h-screen">
+    <div
+      class="bg-white border border-slate-300 w-[450px] h-[360px] drop-shadow-2xl rounded-xl p-4"
+    >
+      <h1
+        class="text-3xl text-center font-bold text-emerald-500 mt-3 drop-shadow-lg"
+      >
+        Login Page
+      </h1>
+      <form action="../../users" method="post" class="mt-6 px-5">
+        <label for="email" class="w-full flex flex-col">
+          <span class="text-l text-slate-600 font-bold">Email</span>
+          <input
+            type="email"
+            class="my-2 border border-emerald-400 rounded-md w-100 px-2 py-1"
+            name="email"
+            id="email"
+            placeholder="example@email.com"
+          />
+        </label>
+        <label for="password" class="w-full flex flex-col mt-2">
+          <span class="text-l text-slate-600 font-bold">Password</span>
+          <input
+            type="password"
+            class="my-2 border border-emerald-400 rounded-md w-100 px-2 py-1"
+            name="password"
+            id="password"
+            placeholder="•••••••••"
+          />
+        </label>
+        <button
+          class="bg-emerald-500 px-4 py-2 border border-emerald-300 rounded-md text-slate-800 font-bold w-full mt-5 hover:opacity-90 transition"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
