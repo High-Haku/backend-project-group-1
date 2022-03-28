@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const usersRouter = require("./users.route");
-const booksRouter = require("./books.route");
-const transactionsRouter = require("./transactions.route");
+const usersRouter = require("./users.router");
+const booksRouter = require("./books.router");
+const transactionsRouter = require("./transactions.router");
 
 router.get("/", (req, res) => {
   res.json("ini dari server");
@@ -12,5 +12,9 @@ router.get("/", (req, res) => {
 router.use("/users", usersRouter);
 router.use("/books", booksRouter);
 router.use("/transactions", transactionsRouter);
+
+router.get("/page", (req, res) => {
+  res.send("test");
+});
 
 module.exports = router;
