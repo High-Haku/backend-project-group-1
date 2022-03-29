@@ -1,13 +1,10 @@
 const express = require("express");
-//const { getAllBarang, getBarangByID, addBarang } = require('../controllers/barang.controller');
 const router = express.Router();
 
-//const barang = require('../models/Barang')
+const { getUsers, getUserByID, addUser } = require("../controllers/users.controller")
 
-// router.get("/", getAllBarang)
-
-// router.get("/:id", getBarangByID)
-
-// router.post("/", addBarang)
+router.get("/", getUsers);
+router.post("/", addUser);
+router.get("/:id", getUserByID);
 
 module.exports = router;
