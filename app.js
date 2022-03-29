@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT | 3000;
@@ -16,6 +17,8 @@ mongoose
   });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const allRouter = require("./routes");
 app.use(allRouter);
 
