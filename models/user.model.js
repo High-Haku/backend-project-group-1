@@ -1,14 +1,24 @@
 const mongoose = require("mongoose");
 
-// const BarangSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     require: true,
-//   },
-//   price: {
-//     type: Number,
-//   },
-// });
+const UserShcema = new mongoose.Schema({
+  name: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    require: true,
+  }
+});
 
-// const Barang = mongoose.model("barang", BarangSchema, "barang");
-// module.exports = Barang;
+const UserModel = mongoose.model("users", UserShcema);
+module.exports = UserModel;
