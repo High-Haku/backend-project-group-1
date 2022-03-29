@@ -1,13 +1,11 @@
 const express = require("express");
-//const { getAllBarang, getBarangByID, addBarang } = require('../controllers/barang.controller');
+
 const router = express.Router();
+const { getAllBooks,addBooks,updateBooks,deleteBooks } = require("../controllers/books.controller");
 
-//const barang = require('../models/Barang')
-
-// router.get("/", getAllBarang)
-
-// router.get("/:id", getBarangByID)
-
-// router.post("/", addBarang)
+router.get("/", getAllBooks)
+router.post("/", addBooks)
+router.put("/", updateBooks)
+router.delete("/", deleteBooks)
 
 module.exports = router;

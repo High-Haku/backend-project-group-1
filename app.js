@@ -16,7 +16,6 @@ mongoose
   });
 
 app.use(express.json());
-
 const allRouter = require("./routes");
 app.use(allRouter);
 
