@@ -45,6 +45,36 @@ module.exports = {
       }
     },
 
+    updateUser: async (req, res) => {
+      const data = await UserModel.findById(req.params.id).catch((err) => err);
+      console.log(data);
+  
+      UserModel.updateOne({ _id: req.params.id })
+        .then(() => {
+          if (data === null)
+            return res.status(404).json({
+              msg: "update failed",
+              err: "data already up to date",
+              data,
+            });
+    
+          res.json({
+            msg: "update success",
+            err: null,
+            data,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400);
+          res.json({
+            msg: "update failed",
+            err,
+            data: null,
+          });
+        });
+    },
+
     deleteUser: async (req, res) => {
       const data = await UserModel.findById(req.params.id).catch((err) => err);
       console.log(data);
