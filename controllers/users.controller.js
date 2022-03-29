@@ -43,5 +43,35 @@ module.exports = {
         console.log(err);
         res.status(500).send(err);
       }
-    }
-  }
+    },
+
+    deleteUser: async (req, res) => {
+      const data = await UserModel.findById(req.params.id).catch((err) => err);
+      console.log(data);
+  
+      UserModel.deleteOne({ _id: req.params.id })
+        .then(() => {
+          if (data === null)
+            return res.status(404).json({
+              msg: "delete failed",
+              err: "data already deleted",
+              data,
+            });
+    
+          res.json({
+            msg: "delete success",
+            err: null,
+            data,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400);
+          res.json({
+            msg: "delete failed",
+            err,
+            data: null,
+          });
+        });
+    } 
+}
