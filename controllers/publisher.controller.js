@@ -2,17 +2,15 @@ const PublisherModel = require("../models/user.model");
 
 module.exports = {
   getPublishers: async (req, res) => {
-    const publishers = await PublisherModel.find();
-    console.log(publishers);
+    const publishers = await PublisherModel.find({}).populate("book");
 
     try {
       res.json({
         message: "Get publishers data success",
-        data: users,
+        data: publishers,
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
+    } catch (error) {
+      res.status(500).send(error);
     }
   },
 

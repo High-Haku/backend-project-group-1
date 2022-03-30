@@ -11,7 +11,6 @@ const publisherShcema = new mongoose.Schema({
   },
   location: {
     type: String,
-    require: true,
   },
 });
 
