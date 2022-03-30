@@ -2,7 +2,8 @@ const Writers = require("../models/writer.model")
 
 module.exports = {
     getAllWriters: async (req,res) => {
-        const allWriter = await Writers.find({}, "-__V")
+        const allWriter = await Writers.find({})
+        .populate("books")
 
         try{
             res.json({

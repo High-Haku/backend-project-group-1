@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { authenticateJWT } = require("../verifyToken");
+const { authenticateJWT } = require("../config/verifyToken");
 const path = require("path");
 
 const usersRouter = require("./users.router");
@@ -17,7 +17,7 @@ router.get("/page", (req, res) => {
   res.sendFile(path.resolve("pages/admin.html"));
 });
 
-// Login Access Only
+// Login Access Only //////////////////
 router.use(authenticateJWT);
 router.use("/users", usersRouter);
 router.use("/books", booksRouter);

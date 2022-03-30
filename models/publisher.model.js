@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const publisherSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   books: {
-    type: String,
-    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "book",
   },
   location: {
     type: String,
-    require: true,
+    default: "",
   },
 });
 
