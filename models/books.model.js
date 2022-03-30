@@ -12,9 +12,7 @@ const booksSchema = new mongoose.Schema({
     // writer:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Writers",
-    //     require: true,
     // },
-
     // publisher:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Publishers",
