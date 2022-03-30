@@ -6,8 +6,8 @@ const publisherShcema = new mongoose.Schema({
     require: true,
   },
   books: {
-    type: String,
-    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Books",
   },
   location: {
     type: String,
