@@ -1,4 +1,4 @@
-const PublisherModel = require("../models/user.model");
+const PublisherModel = require("../models/publisher.model");
 
 module.exports = {
   getPublishers: async (req, res) => {

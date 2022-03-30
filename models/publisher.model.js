@@ -15,5 +15,5 @@ const publisherShcema = new mongoose.Schema({
   },
 });
 
-const PublisherModel = mongoose.model("publishers", UserShcema);
+const PublisherModel = mongoose.model("publishers", publisherShcema);
 module.exports = PublisherModel;
