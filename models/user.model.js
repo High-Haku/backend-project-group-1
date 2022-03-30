@@ -3,21 +3,21 @@ const mongoose = require("mongoose");
 const UserShcema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    require: true,
   },
   email: {
     type: String,
-    required: true,
+    require: true,
   },
   password: {
     type: String,
-    required: true,
+    require: true,
   },
   role: {
     type: String,
     enum: ["user", "admin"],
-    required: true,
-  },
+    require: true,
+  }
 });
 
 const UserModel = mongoose.model("users", UserShcema);

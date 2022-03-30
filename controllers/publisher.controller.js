@@ -1,13 +1,13 @@
-const UserModel = require("../models/user.model");
+const PublisherModel = require("../models/user.model");
 
 module.exports = {
-  getUsers: async (req, res) => {
-    const users = await UserModel.find();
-    console.log(users);
+  getPublishers: async (req, res) => {
+    const publishers = await PublisherModel.find();
+    console.log(publishers);
 
     try {
       res.json({
-        message: "Get users data success",
+        message: "Get publishers data success",
         data: users,
       });
     } catch (err) {
@@ -16,13 +16,13 @@ module.exports = {
     }
   },
 
-  getUserByID: async (req, res) => {
-    const users = await UserModel.findById(req.params.id);
+  getPublisherByID: async (req, res) => {
+    const publishers = await PublisherModel.findById(req.params.id);
 
     try {
       res.json({
-        message: "Get data user success",
-        data: users,
+        message: "Get publisher data success",
+        data: publishers,
       });
     } catch (err) {
       console.log(err);
@@ -30,11 +30,11 @@ module.exports = {
     }
   },
 
-  addUser: async (req, res) => {
+  addPublisher: async (req, res) => {
     const data = req.body;
 
     try {
-      await UserModel.create(data);
+      await PublisherModel.create(data);
       res.json({
         message: "Input data success",
         data: 1,
@@ -45,12 +45,12 @@ module.exports = {
     }
   },
 
-  updateUser: async (req, res) => {
-    const users = await UserModel.findById(req.params.id, "-__v");
+  updatePublisher: async (req, res) => {
+    const publishers = await PublisherModel.findById(req.params.id, "-__v");
     const data = req.body;
 
     try {
-      await UserModel.replaceOne({ _id: req.params.id }, data),
+      await PublisherModel.replaceOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
         });
@@ -60,11 +60,11 @@ module.exports = {
     }
   },
 
-  deleteUser: async (req, res) => {
-    const users = await UserModel.findById(req.params.id, "-__v");
+  deletePublisher: async (req, res) => {
+    const publishers = await PublisherModel.findById(req.params.id, "-__v");
 
     try {
-      await UserModel.deleteOne({ _id: req.params.id });
+      await PublisherModel.deleteOne({ _id: req.params.id });
       res.json({
         message: "Data has been deleted",
       });
