@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const multer = require("multer");
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +20,13 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+
+app.get("/", (req, res) => {
+  res.send("Dokumentasi API");
+});
+
+app.use(express.static("pages"));
 const allRouter = require("./routes");
 app.use(allRouter);
 

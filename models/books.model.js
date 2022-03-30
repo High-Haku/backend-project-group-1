@@ -9,17 +9,14 @@ const booksSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    // writer:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Writers",
-    //     require: true,
-    // },
-
-    // publisher:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Publishers",
-    //     require: true,
-    // },
+    writer:{
+        type: String,
+        require: true,
+    },
+    publisher:{
+        type: String,
+        require: true,
+    },
 
     description:{
         type: String,
@@ -35,7 +32,7 @@ const booksSchema = new mongoose.Schema({
         require: true,
     },
 
-    date:{
+    releaseDate:{
         type: Date,
         require: true,
     },

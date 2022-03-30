@@ -7,13 +7,15 @@ const {
   addBooks,
   updateBooks,
   deleteBooks,
+  getById,
 } = require("../controllers/books.controller");
 
 router.get("/", getAllBooks);
 
-// require admin login ////
+// Requires Admin Login ////
 router.use(requiresAdmin);
 router.post("/", addBooks);
+router.get("/:id", getById);
 router.put("/:id", updateBooks);
 router.delete("/:id", deleteBooks);
 
