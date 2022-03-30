@@ -19,7 +19,11 @@ const loginPage = async (req, res) => {
         { name: user.name, role: user.role },
         process.env.ACCESS_TOKEN_SECRET
       );
-      return res.json({ msg: "login successful", accessToken });
+      return res.json({
+        msg: "login successful",
+        redirect: "/page",
+        token: accessToken,
+      });
     }
 
     res.status(400).json({ msg: "username / password invalid" });

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { requiresAdmin } = require("../verifyToken");
+const { requiresAdmin } = require("../config/verifyToken");
+const { imageFilter, usersImageStorage } = require("../config/multerConfig");
+const multer = require("multer");
 
 const {
   getUsers,
@@ -10,7 +12,11 @@ const {
   deleteUser,
 } = require("../controllers/users.controller");
 
-router.post("/", addUser);
+router.post(
+  "/",
+  multer({ storage: usersImageStorage, fileFilter: imageFilter }).single("img"),
+  addUser
+);
 
 router.use(requiresAdmin);
 router.get("/", getUsers);

@@ -1,5 +1,7 @@
 const express = require("express");
-const { requiresAdmin } = require("../verifyToken");
+const { requiresAdmin } = require("../config/verifyToken");
+const { booksImageStorage, imageFilter } = require("../config/multerConfig");
+const multer = require("multer");
 
 const router = express.Router();
 const {
@@ -14,7 +16,11 @@ router.get("/", getAllBooks);
 router.get("/:id", getById);
 // Requires Admin Login ////
 router.use(requiresAdmin);
-router.post("/", addBooks);
+router.post(
+  "/",
+  multer({ storage: booksImageStorage, fileFilter: imageFilter }).single("img"),
+  addBooks
+);
 router.put("/:id", updateBooks);
 router.delete("/:id", deleteBooks);
 

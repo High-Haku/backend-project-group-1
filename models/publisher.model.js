@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const publisherShcema = new mongoose.Schema({
+const publisherSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   books: {
     type: mongoose.Schema.Types.ObjectId,
@@ -11,8 +11,9 @@ const publisherShcema = new mongoose.Schema({
   },
   location: {
     type: String,
+    default: "",
   },
 });
 
-const PublisherModel = mongoose.model("publishers", publisherShcema);
+const PublisherModel = mongoose.model("publishers", publisherSchema);
 module.exports = PublisherModel;

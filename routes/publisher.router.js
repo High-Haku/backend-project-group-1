@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { requiresAdmin } = require("../verifyToken");
+const { requiresAdmin } = require("../config/verifyToken");
 
 const {
   getPublishers,

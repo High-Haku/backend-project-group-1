@@ -1,21 +1,23 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const writerSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        require: true
-    },
-    dateOfBirth:{
-        type: String
-    },
-    location:{
-        type: String
-    },
-    books:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "book"
-    }
-})
+  name: {
+    type: String,
+    required: true,
+  },
+  dateOfBirth: {
+    type: String,
+    default: "",
+  },
+  location: {
+    type: String,
+    default: "",
+  },
+  books: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "book",
+  },
+});
 
-const Writers = mongoose.model("writer", writerSchema,"writer")
-module.exports = Writers
+const Writers = mongoose.model("writer", writerSchema, "writer");
+module.exports = Writers;
