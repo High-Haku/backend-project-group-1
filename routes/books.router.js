@@ -15,7 +15,7 @@ router.get("/", getAllBooks);
 // Requires Admin Login ////
 router.use(requiresAdmin);
 router.post("/", addBooks);
-router.get("/", getById);
+router.get("/:id", getById);
 router.put("/:id", updateBooks);
 router.delete("/:id", deleteBooks);
 
