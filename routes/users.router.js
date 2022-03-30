@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { requiresAdmin } = require("../verifyToken");
 
 const {
   getUsers,
@@ -9,10 +10,12 @@ const {
   deleteUser,
 } = require("../controllers/users.controller");
 
-router.get("/", getUsers);
 router.post("/", addUser);
-router.put("/", updateUser);
-router.delete("/", deleteUser);
+
+const { requiresAdmin } = require("../verifyToken");
+router.get("/", getUsers);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
 router.get("/:id", getUserByID);
 
 module.exports = router;
