@@ -11,6 +11,7 @@ const {
 
 router.get("/", getAllBooks);
 
+// require admin login ////
 router.use(requiresAdmin);
 router.post("/", addBooks);
 router.put("/:id", updateBooks);
