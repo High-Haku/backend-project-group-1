@@ -8,7 +8,7 @@ module.exports = {
     try {
       res.json({
         message: "Get publishers data success",
-        data: users,
+        data: publishers,
       });
     } catch (err) {
       console.log(err);
