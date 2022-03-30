@@ -7,11 +7,10 @@ const publisherShcema = new mongoose.Schema({
   },
   books: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Books",
+    ref: "book",
   },
   location: {
     type: String,
-    require: true,
   },
 });
 
