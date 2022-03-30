@@ -19,6 +19,7 @@ router.use("/users", usersRouter);
 router.use("/books", booksRouter);
 router.use("/writers", writersRouter);
 router.use("/transactions", transactionsRouter);
+router.use("/publishers", publisherRouter);
 
 router.get("/page", (req, res) => {
   res.sendFile(path.resolve("pages/index.html"));
