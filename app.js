@@ -19,6 +19,10 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Dokumentasi API");
+});
+
 const allRouter = require("./routes");
 app.use(allRouter);
 
