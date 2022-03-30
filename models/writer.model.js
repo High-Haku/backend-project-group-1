@@ -6,7 +6,7 @@ const writerSchema = new mongoose.Schema({
         require: true
     },
     dateOfBirth:{
-        type: Date
+        type: String
     },
     location:{
         type: String
