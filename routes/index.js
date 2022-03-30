@@ -7,6 +7,7 @@ const usersRouter = require("./users.router");
 const booksRouter = require("./books.router");
 const transactionsRouter = require("./transactions.router");
 const writersRouter = require("./writer.router");
+const publisherRouter = require("./publisher.router")
 
 const loginRouter = require("./login.router");
 
