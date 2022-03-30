@@ -12,7 +12,7 @@ const {
 
 router.post("/", addUser);
 
-const { requiresAdmin } = require("../verifyToken");
+router.use(requiresAdmin);
 router.get("/", getUsers);
 router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);
