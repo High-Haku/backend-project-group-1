@@ -2,7 +2,7 @@ const PublisherModel = require("../models/publisher.model");
 
 module.exports = {
   getPublishers: async (req, res) => {
-    const publishers = await PublisherModel.find({}).populate("book");
+    const publishers = await PublisherModel.find({}).populate("books");
 
     try {
       res.json({
