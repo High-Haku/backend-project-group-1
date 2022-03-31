@@ -31,13 +31,14 @@ module.exports = {
   },
 
   addUser: async (req, res) => {
-    const data = req.body;
+    let data = req.body;
+    data = { ...data, image: req.file.path };
 
     try {
       await UserModel.create(data);
       res.json({
         message: "Input data success",
-        data: 1,
+        data,
       });
     } catch (err) {
       console.log(err);

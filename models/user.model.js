@@ -3,21 +3,25 @@ const mongoose = require("mongoose");
 const UserShcema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   role: {
     type: String,
     enum: ["user", "admin"],
-    require: true,
-  }
+    required: true,
+  },
+  image: {
+    type: String,
+    default: "public\\images\\profile.png",
+  },
 });
 
 const UserModel = mongoose.model("users", UserShcema);

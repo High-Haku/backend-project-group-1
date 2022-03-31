@@ -5,10 +5,10 @@ const publisherShcema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  books: {
+  books: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "book",
-  },
+  }],
   location: {
     type: String,
   },
