@@ -14,7 +14,9 @@ const {
 
 router.post(
   "/",
-  multer({ storage: usersImageStorage, fileFilter: imageFilter }).single("img"),
+  multer({ storage: usersImageStorage, fileFilter: imageFilter }).single(
+    "image"
+  ),
   addUser
 );
 
