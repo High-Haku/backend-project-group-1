@@ -21,7 +21,7 @@ router.post(
   multer({ storage: booksImageStorage, fileFilter: imageFilter }).single("img"),
   addBooks
 );
-router.put("/:id", updateBooks);
+router.put("/:id",multer({ storage: booksImageStorage, fileFilter: imageFilter }).single("img"),updateBooks);
 router.delete("/:id", deleteBooks);
 
 module.exports = router;
