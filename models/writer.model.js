@@ -13,10 +13,10 @@ const writerSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  books: {
+  books: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "book",
-  },
+  }],
 });
 
 const Writers = mongoose.model("writer", writerSchema, "writer");
