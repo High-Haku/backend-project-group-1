@@ -3,7 +3,7 @@ const Writers = require("../models/writer.model")
 module.exports = {
     getAllWriters: async (req,res) => {
         const allWriter = await Writers.find({})
-        .populate("books")
+        .populate("books", "title img")
 
         try{
             res.json({
@@ -16,7 +16,7 @@ module.exports = {
     },
     getWriterById: async (req, res)=>{
         const writerById = await Writers.findById((req.params.id),"-__v")
-
+        .populate("books" , "title img")
         try{
             res.json({
                 message: "menampilkan penulis sesuai ID",
