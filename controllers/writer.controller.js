@@ -45,7 +45,7 @@ module.exports = {
         const writer = await Writers.findById((req.params.id), "-__v")
         const data = req.body
         try{
-            await Writers.replaceOne({_id: req.params.id}, data), 
+            await Writers.updateOne({_id: req.params.id}, data), 
             res.json({
                 message: "Data has been updated"
             })
