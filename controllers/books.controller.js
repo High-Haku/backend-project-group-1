@@ -66,6 +66,7 @@ module.exports = {
   updateBooks: async (req, res) => {
     const books = await Books.findById(req.params.id, "-__v");
     const data = req.body;
+    data.img = req.file.path;
     try {
       await Books.replaceOne({ _id: req.params.id }, data),
         res.json({
