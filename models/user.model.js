@@ -22,6 +22,18 @@ const UserShcema = new mongoose.Schema({
     type: String,
     default: "public\\images\\profile.png",
   },
+  wishlist: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "book",
+    },
+  ],
+  purchaseHistory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "transactions",
+    },
+  ],
 });
 
 const UserModel = mongoose.model("users", UserShcema);
