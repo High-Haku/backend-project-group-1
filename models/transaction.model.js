@@ -1,23 +1,26 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const transactionSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Books",
+      required: true,
     },
   ],
   total: {
     type: Number,
-    required: true,
+    default: 0,
   },
   status: {
     type: String,
+    enum: ["proses", "done", "canceled", "pending", "sending"],
     required: true,
   },
   purchaseDate: {
-    type: Date,
-    required: true,
+    type: String,
+    default: moment().format("DD-MM-YYYY"),
   },
 });
 

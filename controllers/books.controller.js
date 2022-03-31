@@ -6,24 +6,55 @@ const getBookByQuery = async (query) => {
   return data !== undefined ? data : false;
 };
 
+const searchBookByQuery = async (queries) => {
+  const queryArray = [];
+  for (query in queries) {
+    const queryName = query.toLowerCase();
+    let queryValue =
+      typeof queries[query] === "string"
+        ? queries[query].toLowerCase()
+        : queries[query];
+
+    // Check Query Value
+    if (isNaN(queryValue)) {
+      switch (queryName) {
+        case "stock":
+        case "price":
+        case "maxprice":
+        case "minprice":
+        case "maxstock":
+        case "minstock":
+          queryValue = 0;
+      }
+    }
+
+    let q = {};
+    if (queryName === "minstock" || queryName === "minprice") {
+      const newQueryName = queryName === "minstock" ? "stock" : "price";
+      q = { [newQueryName]: { $gte: queryValue } };
+    } else if (queryName === "maxstock" || queryName === "maxprice") {
+      const newQueryName = queryName === "maxstock" ? "stock" : "price";
+      q = { [newQueryName]: { $lte: queryValue } };
+    } else if (queryName === "price" || queryName === "stock") {
+      q = { [queryName]: queryValue };
+    } else {
+      const regex = new RegExp(`.*${queryValue}.*`, "gi");
+      q = { [queryName]: { $regex: regex } };
+    }
+
+    queryArray.push(q);
+  }
+  return queryArray;
+};
+
 module.exports = {
   getAllBooks: async (req, res) => {
     // Search By Query ////////////////
     if (Object.keys(req.query).length !== 0) {
-      const queryArray = [];
-      for (query in req.query) {
-        const queryName = query;
-        const queryValue = req.query[query];
-        const q = { [queryName]: queryValue };
-
-        queryArray.push(q);
-      }
-
+      const queryArray = await searchBookByQuery(req.query);
       const book = await getBookByQuery(queryArray);
-      console.log(book);
       if (book) return res.json(book);
     }
-    /////////////////////////////////
 
     // Get All Books /////////////////
     try {
@@ -38,7 +69,7 @@ module.exports = {
   },
   addBooks: async (req, res) => {
     const data = req.body;
-    data.img = req.file.path;
+    if (req.file) data.img = req.file.path;
 
     try {
       await Books.create(data);
@@ -64,13 +95,13 @@ module.exports = {
     }
   },
   updateBooks: async (req, res) => {
-    const books = await Books.findById(req.params.id, "-__v");
     const data = req.body;
-    data.img = req.file.path;
+    if (req.file) data.img = req.file.path;
     try {
       await Books.updateOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
+          data,
         });
     } catch (error) {
       console.log(error);
@@ -78,7 +109,6 @@ module.exports = {
     }
   },
   deleteBooks: async (req, res) => {
-    const books = await Books.findById(req.params.id, "-__v");
     try {
       await Books.deleteOne({ _id: req.params.id });
       res.json({

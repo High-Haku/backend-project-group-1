@@ -14,6 +14,7 @@ const {
 
 router.get("/", getAllBooks);
 router.get("/:id", getById);
+
 // Requires Admin Login ////
 router.use(requiresAdmin);
 router.post(
