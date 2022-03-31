@@ -18,9 +18,9 @@ const UserShcema = new mongoose.Schema({
     enum: ["user", "admin"],
     required: true,
   },
-  photo: {
+  image: {
     type: String,
-    default: "",
+    default: "public\\images\\profile.png",
   },
 });
 

@@ -7,7 +7,7 @@ const booksSchema = new mongoose.Schema({
   },
   img: {
     type: String,
-    default: "",
+    default: "public\\images\\book.jpg",
   },
   writer: {
     type: String,

@@ -32,7 +32,7 @@ module.exports = {
 
   addUser: async (req, res) => {
     let data = req.body;
-    data = { ...data, photo: req.file.path };
+    data = { ...data, image: req.file.path };
 
     try {
       await UserModel.create(data);
