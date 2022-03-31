@@ -68,7 +68,7 @@ module.exports = {
     const data = req.body;
     data.img = req.file.path;
     try {
-      await Books.replaceOne({ _id: req.params.id }, data),
+      await Books.updateOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
         });
