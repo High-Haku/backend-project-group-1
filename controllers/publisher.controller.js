@@ -2,7 +2,10 @@ const PublisherModel = require("../models/publisher.model");
 
 module.exports = {
   getPublishers: async (req, res) => {
-    const publishers = await PublisherModel.find({}).populate("books");
+    const publishers = await PublisherModel.find({}).populate(
+      "books",
+      "title img"
+    );
 
     try {
       res.json({
@@ -15,7 +18,10 @@ module.exports = {
   },
 
   getPublisherByID: async (req, res) => {
-    const publishers = await PublisherModel.findById(req.params.id);
+    const publishers = await PublisherModel.findById(req.params.id).populate(
+      "books",
+      "title img"
+    );
 
     try {
       res.json({
@@ -48,7 +54,7 @@ module.exports = {
     const data = req.body;
 
     try {
-      await PublisherModel.replaceOne({ _id: req.params.id }, data),
+      await PublisherModel.updateOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
         });
