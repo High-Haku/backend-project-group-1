@@ -22,7 +22,13 @@ router.post(
 
 router.use(requiresAdmin);
 router.get("/", getUsers);
-router.put("/:id", updateUser);
+router.put(
+  "/:id",
+  multer({ storage: usersImageStorage, fileFilter: imageFilter }).single(
+    "image"
+  ),
+  updateUser
+);
 router.delete("/:id", deleteUser);
 router.get("/:id", getUserByID);
 

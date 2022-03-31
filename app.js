@@ -34,20 +34,6 @@ app.get("/", (req, res) => {
   res.send("Dokumentasi API");
 });
 
-app.post("/", (req, res) => {
-  console.log(req.file);
-  if (!req.file) {
-    const err = new Error("Image harus di upload");
-    err.errStatus = 422;
-    throw err;
-  }
-
-  res.json({
-    msg: "success",
-    image: req.file.path,
-  });
-});
-
 const allRouter = require("./routes");
 app.use(allRouter);
 

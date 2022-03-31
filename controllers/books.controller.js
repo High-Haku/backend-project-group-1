@@ -1,4 +1,3 @@
-const { type } = require("express/lib/response");
 const Books = require("../models/books.model");
 
 const getBookByQuery = async (query) => {
@@ -45,7 +44,6 @@ const searchBookByQuery = async (queries) => {
 
     queryArray.push(q);
   }
-  console.log(queryArray);
   return queryArray;
 };
 
@@ -71,7 +69,7 @@ module.exports = {
   },
   addBooks: async (req, res) => {
     const data = req.body;
-    data.img = req.file.path;
+    if (req.file) data.img = req.file.path;
 
     try {
       await Books.create(data);
@@ -97,13 +95,13 @@ module.exports = {
     }
   },
   updateBooks: async (req, res) => {
-    const books = await Books.findById(req.params.id, "-__v");
     const data = req.body;
-    data.img = req.file.path;
+    if (req.file) data.img = req.file.path;
     try {
-      await Books.replaceOne({ _id: req.params.id }, data),
+      await Books.updateOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
+          data,
         });
     } catch (error) {
       console.log(error);
@@ -111,7 +109,6 @@ module.exports = {
     }
   },
   deleteBooks: async (req, res) => {
-    const books = await Books.findById(req.params.id, "-__v");
     try {
       await Books.deleteOne({ _id: req.params.id });
       res.json({

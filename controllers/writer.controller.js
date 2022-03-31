@@ -3,7 +3,7 @@ const Writers = require("../models/writer.model")
 module.exports = {
     getAllWriters: async (req,res) => {
         const allWriter = await Writers.find({})
-        .populate("books")
+        .populate("books", "title img")
 
         try{
             res.json({
@@ -16,7 +16,7 @@ module.exports = {
     },
     getWriterById: async (req, res)=>{
         const writerById = await Writers.findById((req.params.id),"-__v")
-
+        .populate("books" , "title img")
         try{
             res.json({
                 message: "menampilkan penulis sesuai ID",
@@ -45,7 +45,7 @@ module.exports = {
         const writer = await Writers.findById((req.params.id), "-__v")
         const data = req.body
         try{
-            await Writers.replaceOne({_id: req.params.id}, data), 
+            await Writers.updateOne({_id: req.params.id}, data), 
             res.json({
                 message: "Data has been updated"
             })

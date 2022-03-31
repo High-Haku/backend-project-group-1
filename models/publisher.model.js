@@ -5,10 +5,10 @@ const publisherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  books: {
+  books: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "book",
-  },
+  }],
   location: {
     type: String,
     default: "",
