@@ -49,9 +49,10 @@ module.exports = {
   updateUser: async (req, res) => {
     const users = await UserModel.findById(req.params.id, "-__v");
     const data = req.body;
+    data = { ...data, image: req.file.path };
 
     try {
-      await UserModel.replaceOne({ _id: req.params.id }, data),
+      await UserModel.updateOne({ _id: req.params.id }, data),
         res.json({
           message: "Data has been updated",
         });
