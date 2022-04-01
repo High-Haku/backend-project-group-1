@@ -117,5 +117,8 @@ document.querySelector(".book-form").addEventListener("submit", addBook);
 
 function addBook(e) {
   e.preventDefault();
-  console.log(document.querySelector("#img").value);
+
+  const dataBuffer = await axios
+  .get(url, config)
+  .catch((err) => console.log(err));
 }
