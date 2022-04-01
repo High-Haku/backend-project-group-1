@@ -84,10 +84,6 @@ module.exports = {
       console.log(error);
       res.status(500).send(error);
     }
-<<<<<<< HEAD
   }
 };
-=======
-  },
-};
->>>>>>> 039f8096756549a35db83f98e2a60272c2c4c69f
+
