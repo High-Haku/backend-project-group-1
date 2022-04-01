@@ -9,7 +9,7 @@ const {
   getUserByID,
   addUser,
   updateUser,
-  deleteUser
+  deleteUser,
 } = require("../controllers/users.controller");
 
 router.post(
@@ -20,9 +20,7 @@ router.post(
   addUser
 );
 
-router.use(requiresAdmin);
-router.get("/", getUsers);
-
+router.get("/:id", getUserByID);
 router.put(
   "/:id",
   multer({ storage: usersImageStorage, fileFilter: imageFilter }).single(
@@ -30,7 +28,9 @@ router.put(
   ),
   updateUser
 );
+
+router.use(requiresAdmin);
+router.get("/", getUsers);
 router.delete("/:id", deleteUser);
-router.get("/:id", getUserByID);
 
 module.exports = router;

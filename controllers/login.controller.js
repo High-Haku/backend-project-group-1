@@ -23,6 +23,7 @@ const loginPage = async (req, res) => {
         msg: "login successful",
         redirect: "/page",
         token: accessToken,
+        id: user.id,
       });
     }
 
