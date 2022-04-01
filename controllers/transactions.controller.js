@@ -1,16 +1,37 @@
 const Transactions = require("../models/transaction.model");
 
 const getData = async (req, res) => {
-  const data = await Transactions.find();
-  res.json({
-    msg: "success",
-    err: null,
-    data,
-  });
+  try {
+    const data = await Transactions.find({}, "-__v");
+    res.json({
+      msg: "success",
+      err: null,
+      data,
+    });
+  } catch (error) {
+    console.log(error), res.status(500).send(error);
+  }
+};
+
+const getById = async (req, res) => {
+  try {
+    const data = await Transactions.findById(req.params.id, "-__v");
+
+    res.json({
+      msg: "success",
+      err: null,
+      data,
+    });
+  } catch (error) {
+    console.log(error), res.status(500).send(error);
+  }
 };
 
 const addData = (req, res) => {
   const data = new Transactions(req.body);
+  data.total = data.products.length;
+
+  // console.log(data);
   data
     .save()
     .then((data) => {
@@ -29,6 +50,22 @@ const addData = (req, res) => {
         data: null,
       });
     });
+};
+
+const updateTransactionsProses = async (req, res) => {
+  try {
+    await Transactions.updateOne(
+      { _id: req.params.id },
+      { status: req.body.status },
+      { runValidators: true }
+    ),
+      res.json({
+        message: "Proses has been updated",
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 };
 
 const deleteData = async (req, res) => {
@@ -60,4 +97,10 @@ const deleteData = async (req, res) => {
     });
 };
 
-module.exports = { getData, addData, deleteData };
+module.exports = {
+  getData,
+  getById,
+  addData,
+  deleteData,
+  updateTransactionsProses,
+};
