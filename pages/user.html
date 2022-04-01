@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>User Page</title>
+  </head>
+  <style>
+    .menu.active {
+      background-color: rgb(241 245 249);
+      color: rgb(16 185 129);
+    }
+  </style>
+  <body class="bg-slate-800 h-screen">
+    <div
+      class="mx-auto mt-7 bg-white border border-slate-300 w-3/4 h-auto drop-shadow-2xl rounded-xl py-4"
+    >
+      <header>
+        <h1
+          class="text-3xl font-bold pl-5 text-emerald-500 drop-shadow-lg mb-3"
+        >
+          User Page
+        </h1>
+        <hr />
+      </header>
+      <section class="flex gap-2">
+        <aside class="w-52 border-r">
+          <ul>
+            <li
+              id="books"
+              class="menu py-2 px-5 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer active"
+            >
+              Books
+            </li>
+            <li
+              id="writers"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Writters
+            </li>
+            <li
+              id="publishers"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Publishers
+            </li>
+            <li
+              id="create-transactions"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Create Transactions
+            </li>
+            <li
+              id="transactions"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              My Transactions
+            </li>
+          </ul>
+        </aside>
+        <main class="max-w-screen-md">
+          <div class="data-container books p-2 hidden"></div>
+          <div class="data-container writers p-2 hidden">b</div>
+          <div class="data-container publishers p-2 hidden">c</div>
+          <div class="data-container create-transactions p-2 hidden">l</div>
+          <div class="data-container transactions p-2 hidden">d</div>
+          <!-- <div class="data-container detail p-2">
+            <img src="" alt="">
+            <h1>Judul Buku (2011)</h1>
+            <h5>Michael Jownas</h5>
+          </div> -->
+        </main>
+      </section>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
