@@ -17,7 +17,8 @@ module.exports = {
   },
 
   getUserByID: async (req, res) => {
-    const users = await UserModel.findById(req.params.id);
+    const users = await UserModel.findById(req.params.id)
+    .populate("purchaseHistory")
 
     try {
       res.json({
@@ -49,7 +50,7 @@ module.exports = {
   updateUser: async (req, res) => {
     const users = await UserModel.findById(req.params.id, "-__v");
     const data = req.body;
-    data = { ...data, image: req.file.path };
+    // data = { ...data, image: req.file.path };
 
     try {
       await UserModel.updateOne({ _id: req.params.id }, data),
@@ -74,5 +75,5 @@ module.exports = {
       console.log(error);
       res.status(500).send(error);
     }
-  },
+  }
 };
