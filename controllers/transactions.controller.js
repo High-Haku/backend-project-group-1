@@ -15,7 +15,10 @@ const getData = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    const data = await Transactions.findById(req.params.id, "-__v");
+    const data = await Transactions.findById(req.params.id).populate(
+      "products",
+      "title price img"
+    );
 
     res.json({
       msg: "success",
