@@ -17,7 +17,8 @@ module.exports = {
   },
 
   getUserByID: async (req, res) => {
-    const users = await UserModel.findById(req.params.id);
+    const users = await UserModel.findById(req.params.id)
+    .populate("purchaseHistory")
 
     try {
       res.json({
@@ -83,5 +84,10 @@ module.exports = {
       console.log(error);
       res.status(500).send(error);
     }
+<<<<<<< HEAD
+  }
+};
+=======
   },
 };
+>>>>>>> 039f8096756549a35db83f98e2a60272c2c4c69f

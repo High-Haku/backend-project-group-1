@@ -5,8 +5,12 @@ const transactionSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
+<<<<<<< HEAD
+      ref: "book",
+=======
       ref: "Books",
       required: true,
+>>>>>>> 039f8096756549a35db83f98e2a60272c2c4c69f
     },
   ],
   total: {
