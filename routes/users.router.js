@@ -9,7 +9,7 @@ const {
   getUserByID,
   addUser,
   updateUser,
-  deleteUser,
+  deleteUser
 } = require("../controllers/users.controller");
 
 router.post(

@@ -18,10 +18,10 @@ const UserShcema = new mongoose.Schema({
     enum: ["user", "admin"],
     required: true,
   },
-  image: {
-    type: String,
-    default: "public\\images\\profile.png",
-  },
+  // image: {
+  //   type: String,
+  //   default: "public\\images\\profile.png",
+  // },
   wishlist: [
     {
       type: mongoose.Schema.Types.ObjectId,
