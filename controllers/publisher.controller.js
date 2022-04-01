@@ -45,7 +45,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(500).send(err);
+      res.status(400).send(err);
     }
   },
 
@@ -60,7 +60,7 @@ module.exports = {
         });
     } catch (error) {
       console.log(error);
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   },
 
@@ -74,7 +74,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   },
 };
