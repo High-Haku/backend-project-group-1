@@ -17,9 +17,10 @@ module.exports = {
   },
 
   getUserByID: async (req, res) => {
-    const users = await UserModel.findById(req.params.id).populate(
-      "purchaseHistory"
-    );
+    const users = await UserModel.findById(req.params.id).populate({
+      path: "purchaseHistory",
+      populate: { path: "products", select: "title price img" },
+    });
 
     try {
       res.json({

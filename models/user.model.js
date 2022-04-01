@@ -31,7 +31,7 @@ const UserShcema = new mongoose.Schema({
   purchaseHistory: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "transactions",
+      ref: "transaction",
     },
   ],
 });
