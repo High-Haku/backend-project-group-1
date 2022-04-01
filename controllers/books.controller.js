@@ -79,7 +79,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   },
   getById: async (req, res) => {
@@ -105,7 +105,7 @@ module.exports = {
         });
     } catch (error) {
       console.log(error);
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   },
   deleteBooks: async (req, res) => {
@@ -116,7 +116,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send(error);
+      res.status(400).send(error);
     }
   },
 };
