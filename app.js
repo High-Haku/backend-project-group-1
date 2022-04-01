@@ -31,7 +31,7 @@ app.use("/public", express.static("public"));
 /////////////////////////////////////////////
 
 app.get("/", (req, res) => {
-  res.send("Dokumentasi API");
+  res.sendFile("/pages/index.html", { root: __dirname });
 });
 
 const allRouter = require("./routes");
