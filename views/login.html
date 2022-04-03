@@ -44,6 +44,12 @@
           Login
         </button>
       </form>
+      <script>
+        if (document.cookie) {
+          const token = document.cookie.split("=")[1];
+          if (token) window.location.replace("./views");
+        }
+      </script>
     </div>
   </body>
 </html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../public/scripts/jwt-decode.js"></script>
+
+    <title>Admin Panel</title>
+  </head>
+  <style>
+    .menu.active {
+      background-color: rgb(241 245 249);
+      color: rgb(16 185 129);
+    }
+
+    th,
+    td {
+      padding: 8px;
+    }
+  </style>
+
+  <body class="bg-slate-800 h-screen">
+    <div class="mx-auto bg-white w-[1200px] h-auto drop-shadow-2xl py-4">
+      <header class="flex justify-between mb-5 px-10 items-center">
+        <h1 class="text-3xl font-bold text-emerald-500 drop-shadow-lg">
+          Data Management System
+        </h1>
+        <button
+          class="bg-rose-500 text-slate-50 font-bold p-2 text-xs rounded hover:opacity-80"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+      </header>
+      <hr />
+      <section class="flex gap-2">
+        <aside class="w-52 border-r">
+          <ul>
+            <li
+              id="books"
+              class="menu py-2 px-5 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer active"
+            >
+              Books
+            </li>
+            <li
+              id="writers"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Writters
+            </li>
+            <li
+              id="publishers"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Publishers
+            </li>
+            <li
+              id="transactions"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Transactions
+            </li>
+            <li
+              id="users"
+              class="menu py-2 px-5 text-slate-700 italic hover:bg-slate-50 hover:text-emerald-300 cursor-pointer"
+            >
+              Users
+            </li>
+          </ul>
+        </aside>
+        <main class="flex-1 px-5 py-2">
+          <div class="data-container books p-2">
+            <div class="mb-5">
+              <button
+                class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
+                onclick="addBookButton()"
+              >
+                Add New Book
+              </button>
+              <table class="table-auto mt-5 text-sm">
+                <thead class="bg-slate-200">
+                  <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Writer</th>
+                    <th>Publisher</th>
+                    <th>Release</th>
+                    <th>Genre</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center books-container"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="data-container writers p-2 hidden">
+            <table class="table-auto mt-5 text-sm">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Birth Date</th>
+                  <th>Address</th>
+                  <th>Books</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-center writers-container"></tbody>
+            </table>
+          </div>
+          <div class="data-container publishers p-2 hidden">
+            <table class="table-auto mt-5 text-sm">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th>#</th>
+                  <th>Publisher Name</th>
+                  <th>Location</th>
+                  <th>Published Books</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-center publishers-container"></tbody>
+            </table>
+          </div>
+          <div class="data-container transactions p-2 hidden">
+            <table class="table-auto mt-5 text-sm">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th>#</th>
+                  <th>Purchase Date</th>
+                  <th>Products</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-center transactions-container"></tbody>
+            </table>
+          </div>
+          <div class="data-container users p-2 hidden">
+            <table class="table-auto mt-5 text-sm">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th>#</th>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Wishlist</th>
+                  <th>Purchase History</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-center users-container"></tbody>
+            </table>
+          </div>
+
+          <!--  -->
+          <div class="data-container addBook p-2 hidden w-100">
+            <h1 class="text-xl px-1">Add New Book</h1>
+          </div>
+        </main>
+      </section>
+    </div>
+
+    <script src="../public/scripts/admin.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const multer = require("multer");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const {
@@ -26,12 +26,14 @@ mongoose
 // Middleware /////////////
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/pages", express.static("pages"));
+app.use(cookieParser());
 app.use("/public", express.static("public"));
 /////////////////////////////////////////////
 
+app.get("/favicon.ico", (req, res) => res.status(204));
+
 app.get("/", (req, res) => {
-  res.sendFile("/pages/index.html", { root: __dirname });
+  res.sendFile("/views/index.html", { root: __dirname });
 });
 
 const allRouter = require("./routes");
