@@ -1,5 +1,7 @@
 const UserModel = require("../models/user.model");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 module.exports = {
   getUsers: async (req, res) => {
@@ -41,6 +43,10 @@ module.exports = {
       if (!validator.isEmail(req.body.email))
         return res.status(400).json({ messege: "email not valid" });
 
+      data.password = await bcrypt
+        .hash(data.password, saltRounds)
+        .catch((err) => console.log(err));
+
       await UserModel.create(data);
       res.json({
         message: "Input data success",
@@ -54,7 +60,16 @@ module.exports = {
 
   updateUser: async (req, res) => {
     const data = req.body;
+
+    // check jika ada gambar
     if (req.file) data = { ...data, image: req.file.path };
+
+    //check jika ada password
+    if (req.body.password) {
+      data.password = await bcrypt
+        .hash(data.password, saltRounds)
+        .catch((err) => console.log(err));
+    }
 
     //check email
     if (req.body.email) {

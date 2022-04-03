@@ -1,9 +1,27 @@
-const config = {
-  headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0ODU0ODY4Nn0.5GQYfPWVOPqJDppEdAsAcWviGw2y0trXeboN_ClCCw0 `,
-  },
-};
+const bookUri = "http://localhost:3000/books";
+const writerUri = "http://localhost:3000/writers";
+const publisherUri = "http://localhost:3000/publishers";
+const transactionUri = "http://localhost:3000/transactions";
+const userUri = "http://localhost:3000/users";
 
+let config;
+let token;
+
+if (document.cookie) {
+  token = document.cookie.split("=")[1];
+  const decoded = jwt_decode(token);
+
+  config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+} else {
+  alert("Unauthorized");
+  window.location.replace("/");
+}
+
+// Get Data From Backend & Print it /////////////////
 async function printDatas(url, container, element) {
   container.innerHTML = "";
   const dataBuffer = await axios
@@ -11,49 +29,17 @@ async function printDatas(url, container, element) {
     .catch((err) => console.log(err));
 
   const datas = dataBuffer.data.data;
+  console.log(datas);
 
   datas.forEach((data, index) => {
     container.innerHTML += element(data, index + 1);
   });
 }
+////////////////////////////////////////////////////
 
-async function printDetail() {}
+printDatas(bookUri, document.querySelector(".books-container"), bookElement);
 
-const bookElement = (book, number) => {
-  return `<div class="book my-1">
-  <a href="#">
-    <span class="hover:text-slate-800"
-      >${number}. ${book.title} (${book.releaseDate})</span
-    >
-    <button
-      class="text-white text-sm bg-slate-400 px-1 rounded-md hover:opacity-70 transition"
-    >
-      detail
-    </button>
-  </a>
-</div>`;
-};
-
-const writerElement = (writter, number) => {
-  return `<div class="book my-1">
-    <a href="#">
-      <span class="hover:text-slate-800"
-        >${number}. ${writter.name}</span
-      >
-      <button
-        class="text-white text-sm bg-emerald-500 px-1 rounded-md hover:opacity-70 transition"
-      >
-        detail
-      </button>
-    </a>
-  </div>`;
-};
-
-printDatas(
-  "http://localhost:3000/books",
-  document.querySelector(".books-container"),
-  bookElement
-);
+// Click Event /////////////////////////////////
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("menu")) {
@@ -77,34 +63,39 @@ function menuHandle(activeMenu) {
   switch (activeMenu.id) {
     case "books":
       printDatas(
-        "http://localhost:3000/books",
+        bookUri,
         document.querySelector(".books-container"),
         bookElement
       );
+      break;
     case "writers":
       printDatas(
-        "http://localhost:3000/writers",
-        document.querySelector(".writers"),
+        writerUri,
+        document.querySelector(".writers-container"),
         writerElement
       );
+      break;
     case "publishers":
       printDatas(
-        "http://localhost:3000/publishers",
-        document.querySelector(".publishers"),
-        writerElement
+        publisherUri,
+        document.querySelector(".publishers-container"),
+        publisherElement
       );
+      break;
     case "transactions":
       printDatas(
-        "http://localhost:3000/transactions",
-        document.querySelector(".transactions"),
-        writerElement
+        transactionUri,
+        document.querySelector(".transactions-container"),
+        transactionsElement
       );
+      break;
     case "users":
       printDatas(
-        "http://localhost:3000/users",
-        document.querySelector(".users"),
-        writerElement
+        userUri,
+        document.querySelector(".users-container"),
+        usersElement
       );
+      break;
   }
 }
 
@@ -113,12 +104,103 @@ function addBookButton() {
   document.querySelector(".addBook").classList.remove("hidden");
 }
 
-document.querySelector(".book-form").addEventListener("submit", addBook);
+// document.querySelector(".book-form").addEventListener("submit", addBook);
 
-function addBook(e) {
-  e.preventDefault();
+// function addBook(e) {
+//   e.preventDefault();
 
-  const dataBuffer = await axios
-  .get(url, config)
-  .catch((err) => console.log(err));
+//   const dataBuffer = await axios
+//   .get(url, config)
+//   .catch((err) => console.log(err));
+// }
+
+function logout() {
+  document.cookie = "cookie=a ;max-age=0";
+  window.location.replace("/");
+}
+
+async function deleteData(id, url) {
+  if (confirm("Are you sure ?")) {
+    await axios.delete(`${url}/${id}`, config).catch((err) => console.log(err));
+    alert("delete data success");
+    location.reload();
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+// HTML Element ///////////////////////////////////////////////////////
+function bookElement(data, index) {
+  return `<tr class="border-b">
+                    <td>${index}</td>
+                    <td>${data.title}</td>
+                    <td>${data.writer}</td>
+                    <td>${data.publisher}</td>
+                    <td>${data.releaseDate}</td>
+                    <td>${data.genre}</td>
+                    <td>${data.stock}</td>
+                    <td>Rp${data.price}</td>
+                    <td><a href="${data.img}" target="_blank" class="text-blue-500 border border-blue-400 p-1 m-1 hover:opacity-70">View</a></td>
+                    <td><a class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a class="text-red-600 border border-red-400 p-1 m-1 cursor-pointer hover:opacity-70" onClick='deleteData("${data._id}", "${bookUri}")'>Delete</a></td>
+                  </tr>`;
+}
+
+function writerElement(data, index) {
+  let booksList = "";
+  data.books.forEach((book) => (booksList += `<li>${book.title}</li>`));
+
+  return `<tr class="border-b">
+  <td>${index}</td>
+  <td>${data.name}</td>
+  <td>${data.dateOfBirth}</td>
+  <td>${data.location}</td>
+  <td class="text-xs"><ol class="text-left list-disc px-2">${booksList}</ol></td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70">Delete</a></td>
+</tr>`;
+}
+
+function publisherElement(data, index) {
+  let booksList = "";
+  data.books.forEach((book) => (booksList += `<li>${book.title}</li>`));
+
+  return `<tr class="border-b">
+  <td>${index}</td>
+  <td>${data.name}</td>
+  <td>${data.location}</td>
+  <td class="text-xs"><ol class="text-left list-disc px-2">${booksList}</ol></td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70">Delete</a></td>
+</tr>`;
+}
+
+function transactionsElement(data, index) {
+  let productsList = "";
+  data.products.forEach((p) => (productsList += `<li>${p}</li>`));
+
+  return `<tr class="border-b">
+  <td>${index}</td>
+  <td>${data.purchaseDate}</td>
+  <td class="text-xs">${productsList}</td>
+  <td>${data.total}</td>
+  <td>${data.status}</td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70">Delete</a></td>
+</tr>`;
+}
+
+function usersElement(data, index) {
+  let purchaseList = "";
+  data.purchaseHistory.forEach((p) => (purchaseList += `<li>${p.title}</li>`));
+
+  let wishlist = "";
+  data.wishlist.forEach((w) => (wishlist += `<li>${w.title}</li>`));
+
+  return `<tr class="border-b">
+    <td>${index}</td>
+    <td><img src="${data.image}" class="w-10 h-10" /></td>
+    <td>${data.name}</td>
+    <td>${data.email}</td>
+    <td>${data.role}</td>
+    <td class="text-xs">${wishlist}</td>
+    <td class="text-xs">${purchaseList}</td>
+    <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70">Delete</a></td>
+  </tr>`;
 }

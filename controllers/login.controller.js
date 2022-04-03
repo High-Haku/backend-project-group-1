@@ -1,9 +1,10 @@
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 const showLoginPage = (req, res) => {
-  res.sendFile(path.resolve("pages/login.html"));
+  res.sendFile(path.resolve("views/login.html"));
 };
 
 const loginPage = async (req, res) => {
@@ -14,14 +15,21 @@ const loginPage = async (req, res) => {
       }
     );
 
-    if (req.body.email === user.email && req.body.password === user.password) {
+    const isPasswordRight = await bcrypt
+      .compare(req.body.password, user.password)
+      .catch((err) => console.log(err));
+
+    if (req.body.email === user.email && isPasswordRight) {
       const accessToken = jwt.sign(
-        { name: user.name, role: user.role },
+        { name: user.name, role: user.role, id: user._id },
         process.env.ACCESS_TOKEN_SECRET
       );
+      res.cookie("cookie", accessToken, {
+        maxAge: 15 * 60 * 1000,
+      });
       return res.json({
         msg: "login successful",
-        redirect: "/page",
+        redirect: "/views",
         token: accessToken,
         id: user.id,
       });

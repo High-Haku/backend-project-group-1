@@ -13,8 +13,8 @@ const loginRouter = require("./login.router");
 
 router.use("/login", loginRouter);
 
-router.get("/page", (req, res) => {
-  res.sendFile(path.resolve("pages/admin.html"));
+router.get("/views", (req, res) => {
+  res.sendFile(path.resolve("./views/admin.html"));
 });
 
 // Login Access Only //////////////////
