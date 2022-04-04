@@ -5,7 +5,10 @@ const saltRounds = 10;
 
 module.exports = {
   getUsers: async (req, res) => {
-    const users = await UserModel.find();
+    const users = await UserModel.find({}, "-__v").populate({
+      path: "purchaseHistory",
+      populate: { path: "products", select: "title price img" },
+    });
 
     try {
       res.json({
