@@ -79,7 +79,7 @@
                 class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
                 onclick="addBookButton()"
               >
-                Add New Book
+                Add Book
               </button>
               <table class="table-auto mt-5 text-sm">
                 <thead class="bg-slate-200">
@@ -101,6 +101,12 @@
             </div>
           </div>
           <div class="data-container writers p-2 hidden">
+            <button
+              class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
+              onclick="addBookButton()"
+            >
+              Add Writer
+            </button>
             <table class="table-auto mt-5 text-sm">
               <thead class="bg-slate-200">
                 <tr>
@@ -116,6 +122,12 @@
             </table>
           </div>
           <div class="data-container publishers p-2 hidden">
+            <button
+              class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
+              onclick="addBookButton()"
+            >
+              Add Publisher
+            </button>
             <table class="table-auto mt-5 text-sm">
               <thead class="bg-slate-200">
                 <tr>
@@ -130,13 +142,19 @@
             </table>
           </div>
           <div class="data-container transactions p-2 hidden">
+            <button
+              class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
+              onclick="addBookButton()"
+            >
+              Create Transaction
+            </button>
             <table class="table-auto mt-5 text-sm">
               <thead class="bg-slate-200">
                 <tr>
                   <th>#</th>
                   <th>Purchase Date</th>
                   <th>Products</th>
-                  <th>Total</th>
+                  <th>Total Price</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -145,6 +163,12 @@
             </table>
           </div>
           <div class="data-container users p-2 hidden">
+            <button
+              class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
+              onclick="addBookButton()"
+            >
+              Add User
+            </button>
             <table class="table-auto mt-5 text-sm">
               <thead class="bg-slate-200">
                 <tr>
@@ -162,10 +186,121 @@
             </table>
           </div>
 
-          <!--  -->
-          <div class="data-container addBook p-2 hidden w-100">
-            <h1 class="text-xl px-1">Add New Book</h1>
+          <!-- Add New Data Element -->
+          <div class="data-container addBook hidden">
+            <h3 class="text-xl font-bold text-emerald-500 mb-3">New Book</h3>
+            <form id="formBook">
+              <div class="flex gap-4 flex-wrap">
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="title"
+                    >Title<span class="text-red-600">*</span></label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="title"
+                    id="title"
+                    required
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="writer">Writer</label>
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="writer"
+                    id="writer"
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="publisher"
+                    >Publisher</label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="publisher"
+                    id="publisher"
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="genre"
+                    >Genre<span class="text-red-600">*</span></label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="genre"
+                    id="genre"
+                    required
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="description"
+                    >Description</label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="description"
+                    id="description"
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="releaseDate"
+                    >Release Date</label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="text"
+                    name="releaseDate"
+                    id="releaseDate"
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="price"
+                    >Price<span class="text-red-600">*</span></label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="number"
+                    name="price"
+                    id="price"
+                    required
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="stock"
+                    >Stock<span class="text-red-600">*</span></label
+                  >
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="number"
+                    name="stock"
+                    id="stock"
+                    required
+                  />
+                </div>
+                <div class="flex justify-between w-[420px]">
+                  <label class="text-slate-600" for="img">img</label>
+                  <input
+                    class="border rounded py-1 px-2 text-sm w-80"
+                    type="file"
+                    name="img"
+                    id="img"
+                  />
+                </div>
+              </div>
+              <button
+                class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80 mt-3"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
           </div>
+
+          <!--  -->
         </main>
       </section>
     </div>

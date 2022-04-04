@@ -62,9 +62,10 @@ module.exports = {
 
   updateUser: async (req, res) => {
     const data = req.body;
+    console.log(req.file);
 
     // check jika ada gambar
-    if (req.file) data = { ...data, image: req.file.path };
+    if (req.file) data.image = req.file.path;
 
     //check jika ada password
     if (req.body.password) {

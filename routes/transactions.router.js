@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", getData);
 router.get("/:id", getById);
-router.patch("/:id", updateTransactionsProses);
+router.put("/:id", updateTransactionsProses);
 router.post("/", addData);
 router.delete("/:id", deleteData);
 
