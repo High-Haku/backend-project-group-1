@@ -9,7 +9,7 @@ const transactionSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  total: {
+  totalPrice: {
     type: Number,
     default: 0,
   },

@@ -1,4 +1,5 @@
 const Transactions = require("../models/transaction.model");
+const Books = require("../models/books.model");
 
 const getData = async (req, res) => {
   try {
@@ -30,11 +31,16 @@ const getById = async (req, res) => {
   }
 };
 
-const addData = (req, res) => {
+const addData = async (req, res) => {
   const data = new Transactions(req.body);
-  data.total = data.products.length;
 
-  // console.log(data);
+  // Calculate Total Price
+  const book = await Books.find({ _id: req.body.products });
+  let totalPrice = 0;
+  book.forEach((b) => (totalPrice += b.price));
+  data.totalPrice = totalPrice;
+  //////////////////////////
+
   data
     .save()
     .then((data) => {

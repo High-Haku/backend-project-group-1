@@ -1,19 +1,32 @@
-const bookUri = "http://localhost:3000/books";
-const writerUri = "http://localhost:3000/writers";
-const publisherUri = "http://localhost:3000/publishers";
-const transactionUri = "http://localhost:3000/transactions";
-const userUri = "http://localhost:3000/users";
+const bookUri = "https://haku-library-api.herokuapp.com/books";
+const writerUri = "https://haku-library-api.herokuapp.com/writers";
+const publisherUri = "https://haku-library-api.herokuapp.com/publishers";
+const transactionUri = "https://haku-library-api.herokuapp.com/transactions";
+const userUri = "https://haku-library-api.herokuapp.com/users";
 
 let config;
+let postConfig;
 let token;
 
 if (document.cookie) {
   token = document.cookie.split("=")[1];
   const decoded = jwt_decode(token);
 
+  if (decoded.role !== "admin") {
+    alert("Unauthorized");
+    window.location.replace("/");
+  }
+
   config = {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+  };
+
+  postConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
     },
   };
 } else {
@@ -104,6 +117,35 @@ function addBookButton() {
   document.querySelector(".addBook").classList.remove("hidden");
 }
 
+const bookForm = document.querySelector("#formBook");
+
+bookForm.addEventListener("submit", function addBookData(e) {
+  e.preventDefault();
+
+  let formData = {};
+  let file;
+  bookForm.querySelectorAll("input").forEach((d) => {
+    if (d.id === "img") {
+      file = d.files[0];
+    } else {
+      formData = { ...formData, [d.id]: d.value };
+    }
+  });
+  axios.post(bookUri, formData, config).catch((err) => console.log(err));
+  axios
+    .post("upload_file", file, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .catch((err) => console.log(err));
+
+  console.log(formData);
+
+  alert("adding data success");
+  location.reload();
+});
+
 // document.querySelector(".book-form").addEventListener("submit", addBook);
 
 // function addBook(e) {
@@ -180,7 +222,7 @@ function transactionsElement(data, index) {
   <td>${index}</td>
   <td>${data.purchaseDate}</td>
   <td class="text-xs">${productsList}</td>
-  <td>${data.total}</td>
+  <td>${data.totalPrice}</td>
   <td>${data.status}</td>
   <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70">Delete</a></td>
 </tr>`;
