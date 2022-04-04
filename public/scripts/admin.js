@@ -35,7 +35,7 @@ async function printDatas(url, container, element) {
     .catch((err) => console.log(err));
 
   const datas = dataBuffer.data.data;
-  console.log(datas);
+  //console.log(datas);
 
   datas.forEach((data, index) => {
     container.innerHTML += element(data, index + 1);
@@ -236,6 +236,6 @@ function usersElement(data, index) {
     <td>${data.role}</td>
     <td class="text-xs">${wishlist}</td>
     <td class="text-xs">${purchaseList}</td>
-    <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${UserUri}")'>Delete</a></td>
+    <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${userUri}")'>Delete</a></td>
   </tr>`;
 }
