@@ -76,8 +76,9 @@
           <div class="data-container books p-2">
             <div class="mb-5">
               <button
+                id="addBook"
                 class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
-                onclick="addBookButton()"
+                onclick="addButton(this)"
               >
                 Add Book
               </button>
@@ -85,6 +86,7 @@
                 <thead class="bg-slate-200">
                   <tr>
                     <th>#</th>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Writer</th>
                     <th>Publisher</th>
@@ -92,7 +94,6 @@
                     <th>Genre</th>
                     <th>Stock</th>
                     <th>Price</th>
-                    <th>Image</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -102,8 +103,9 @@
           </div>
           <div class="data-container writers p-2 hidden">
             <button
+              id="addWriter"
               class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
-              onclick="addBookButton()"
+              onclick="addButton(this)"
             >
               Add Writer
             </button>
@@ -123,8 +125,9 @@
           </div>
           <div class="data-container publishers p-2 hidden">
             <button
+              id="addPublisher"
               class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
-              onclick="addBookButton()"
+              onclick="addButton(this)"
             >
               Add Publisher
             </button>
@@ -143,8 +146,9 @@
           </div>
           <div class="data-container transactions p-2 hidden">
             <button
+              id="addTransaction"
               class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
-              onclick="addBookButton()"
+              onclick="addButton(this)"
             >
               Create Transaction
             </button>
@@ -153,6 +157,7 @@
                 <tr>
                   <th>#</th>
                   <th>Purchase Date</th>
+                  <th>Order By</th>
                   <th>Products</th>
                   <th>Total Price</th>
                   <th>Status</th>
@@ -164,8 +169,9 @@
           </div>
           <div class="data-container users p-2 hidden">
             <button
+              id="addUser"
               class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80"
-              onclick="addBookButton()"
+              onclick="addButton(this)"
             >
               Add User
             </button>
@@ -187,117 +193,29 @@
           </div>
 
           <!-- Add New Data Element -->
-          <div class="data-container addBook hidden">
+          <div class="data-container hidden">
             <h3 class="text-xl font-bold text-emerald-500 mb-3">New Book</h3>
-            <form id="formBook">
-              <div class="flex gap-4 flex-wrap">
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="title"
-                    >Title<span class="text-red-600">*</span></label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="title"
-                    id="title"
-                    required
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="writer">Writer</label>
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="writer"
-                    id="writer"
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="publisher"
-                    >Publisher</label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="publisher"
-                    id="publisher"
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="genre"
-                    >Genre<span class="text-red-600">*</span></label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="genre"
-                    id="genre"
-                    required
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="description"
-                    >Description</label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="description"
-                    id="description"
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="releaseDate"
-                    >Release Date</label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="text"
-                    name="releaseDate"
-                    id="releaseDate"
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="price"
-                    >Price<span class="text-red-600">*</span></label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="number"
-                    name="price"
-                    id="price"
-                    required
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="stock"
-                    >Stock<span class="text-red-600">*</span></label
-                  >
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="number"
-                    name="stock"
-                    id="stock"
-                    required
-                  />
-                </div>
-                <div class="flex justify-between w-[420px]">
-                  <label class="text-slate-600" for="img">img</label>
-                  <input
-                    class="border rounded py-1 px-2 text-sm w-80"
-                    type="file"
-                    name="img"
-                    id="img"
-                  />
-                </div>
-              </div>
-              <button
-                class="bg-emerald-500 text-slate-50 p-2 rounded hover:opacity-80 mt-3"
-                type="submit"
-              >
-                Submit
-              </button>
-            </form>
+            <form id="addBook" class="addBook formUpdate"></form>
+          </div>
+          <div class="data-container hidden">
+            <h3 class="text-xl font-bold text-emerald-500 mb-3">New Writer</h3>
+            <form id="addWriter" class="addWriter formUpdate"></form>
+          </div>
+          <div class="data-container hidden">
+            <h3 class="text-xl font-bold text-emerald-500 mb-3">
+              New Publisher
+            </h3>
+            <form id="addPublisher" class="addPublisher formUpdate"></form>
+          </div>
+          <div class="data-container hidden">
+            <h3 class="text-xl font-bold text-emerald-500 mb-3">
+              New Transaction
+            </h3>
+            <form id="addTransaction" class="addTransaction formUpdate"></form>
+          </div>
+          <div class="data-container hidden">
+            <h3 class="text-xl font-bold text-emerald-500 mb-3">New User</h3>
+            <form id="addUser" class="addUser formUpdate"></form>
           </div>
 
           <!--  -->

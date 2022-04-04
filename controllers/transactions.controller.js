@@ -1,9 +1,11 @@
-const Transactions = require("../models/transaction.model");
 const Books = require("../models/books.model");
+const Transactions = require("../models/transaction.model");
 
 const getData = async (req, res) => {
   try {
-    const data = await Transactions.find({}, "-__v");
+    const data = await Transactions.find({}, "-__v")
+      .populate("orderBy", "name")
+      .populate("products", "title price img");
     res.json({
       msg: "success",
       err: null,

@@ -19,10 +19,10 @@ router.get("/views", (req, res) => {
 
 // Login Access Only //////////////////
 router.use(authenticateJWT);
-router.use("/users", usersRouter);
-router.use("/books", booksRouter);
 router.use("/writers", writersRouter);
 router.use("/transactions", transactionsRouter);
 router.use("/publishers", publisherRouter);
+router.use("/users", usersRouter);
+router.use("/books", booksRouter);
 
 module.exports = router;
