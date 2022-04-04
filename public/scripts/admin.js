@@ -190,7 +190,7 @@ function writerElement(data, index) {
   <td>${data.dateOfBirth}</td>
   <td>${data.location}</td>
   <td class="text-xs"><ol class="text-left list-disc px-2">${booksList}</ol></td>
-  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${bookUri}")>Delete</a></td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${writerUri}")'>Delete</a></td>
 </tr>`;
 }
 
@@ -203,7 +203,7 @@ function publisherElement(data, index) {
   <td>${data.name}</td>
   <td>${data.location}</td>
   <td class="text-xs"><ol class="text-left list-disc px-2">${booksList}</ol></td>
-  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${bookUri}")>Delete</a></td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${publisherUri}").>Delete</a></td>
 </tr>`;
 }
 
@@ -217,7 +217,7 @@ function transactionsElement(data, index) {
   <td class="text-xs">${productsList}</td>
   <td>${data.totalPrice}</td>
   <td>${data.status}</td>
-  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${bookUri}")>Delete</a></td>
+  <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${transactionUri}")'>Delete</a></td>
 </tr>`;
 }
 
@@ -236,6 +236,6 @@ function usersElement(data, index) {
     <td>${data.role}</td>
     <td class="text-xs">${wishlist}</td>
     <td class="text-xs">${purchaseList}</td>
-    <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${bookUri}")>Delete</a></td>
+    <td><a href="#" class="text-emerald-600 border border-emerald-400 p-1 m-1 hover:opacity-70">Edit</a><a href="#" class="text-red-600 border border-red-400 p-1 m-1 hover:opacity-70" onClick='deleteData("${data._id}", "${UserUri}")'>Delete</a></td>
   </tr>`;
 }
