@@ -1,14 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const dbName = "backendProject";
-const uri = `mongodb+srv://${process.env.USER_PASSWORD}@cluster0.cydfw.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 mongoose
-  .connect(uri)
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log("MongoDB Atlas Connected");
   })
@@ -17,6 +16,7 @@ mongoose
   });
 
 // Middleware /////////////
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static("public"));
