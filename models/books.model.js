@@ -10,11 +10,13 @@ const booksSchema = new mongoose.Schema({
     default: "public\\images\\book.jpg",
   },
   writer: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "writer",
     default: "",
   },
   publisher: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "publishers",
     default: "",
   },
 
