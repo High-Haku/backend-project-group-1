@@ -40,7 +40,6 @@ async function printDatas(url, container, element) {
     .catch((err) => console.log(err));
 
   const datas = dataBuffer.data.data;
-  // /console.log(datas);
 
   datas.forEach((data, index) => {
     container.innerHTML += element(data, index + 1);

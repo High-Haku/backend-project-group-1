@@ -22,11 +22,13 @@ module.exports = {
   },
 
   getUserByID: async (req, res) => {
-    const users = await UserModel.findById(req.params.id).populate({
+    const users = await UserModel.findById(req.params.id)
+    .populate({
       path: "purchaseHistory",
       populate: { path: "products", select: "title price img" },
-    });
-
+    })
+    .populate("wishlist" , "title img price")
+    
     try {
       res.json({
         message: "Get data user success",
