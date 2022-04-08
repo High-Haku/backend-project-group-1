@@ -4,12 +4,6 @@ const publisherUri = "https://haku-library-api.herokuapp.com/publishers";
 const transactionUri = "https://haku-library-api.herokuapp.com/transactions";
 const userUri = "https://haku-library-api.herokuapp.com/users";
 
-// const bookUri = "http://localhost:3000/books";
-// const writerUri = "http://localhost:3000/writers";
-// const publisherUri = "http://localhost:3000/publishers";
-// const transactionUri = "http://localhost:3000/transactions";
-// const userUri = "http://localhost:3000/users";
-
 let config;
 let token;
 
@@ -33,13 +27,17 @@ if (document.cookie) {
 }
 
 // Get Data From Backend & Print it /////////////////
+async function getDatas(url) {
+  const data = await axios.get(url, config).catch((err) => console.log(err));
+  return data;
+}
+
 async function printDatas(url, container, element) {
   container.innerHTML = "";
-  const dataBuffer = await axios
-    .get(url, config)
-    .catch((err) => console.log(err));
+  const dataBuffer = await getDatas(url);
 
   const datas = dataBuffer.data.data;
+  //console.log(datas);
 
   datas.forEach((data, index) => {
     container.innerHTML += element(data, index + 1);
@@ -122,14 +120,19 @@ async function deleteData(id, url) {
   }
 }
 
-function addButton(e) {
+async function addButton(e) {
   resetSection();
 
   let element = "";
+  let data = {};
 
   switch (e.id) {
     case "addBook":
       element = addBookElement;
+      const writerData = await getDatas(writerUri);
+      const publihserData = await getDatas(publisherUri);
+      data.writer = writerData.data.data;
+      data.publisher = publihserData.data.data;
       break;
     case "addWriter":
       element = addWriterElement;
@@ -139,13 +142,17 @@ function addButton(e) {
       break;
     case "addTransaction":
       element = addTranasctionElement;
+      const bookData = await getDatas(bookUri);
+      const userData = await getDatas(userUri);
+      data.books = bookData.data.data;
+      data.users = userData.data.data;
       break;
     case "addUser":
       element = addUserElement;
       break;
   }
 
-  document.querySelector(`.${e.id}`).innerHTML = element();
+  document.querySelector(`.${e.id}`).innerHTML = element(data);
   document.querySelector(`.${e.id}`).parentElement.classList.remove("hidden");
 }
 
@@ -165,7 +172,7 @@ document.addEventListener("submit", (e) => {
       e.target.querySelectorAll(`.userInput`).forEach((d) => {
         if (d.id === "img" || d.id === "image") {
           if (d.files.length !== 0) formData.append(d.id, d.files[0]);
-        } else {
+        } else if (d.value) {
           formData.append(d.id, d.value);
         }
       });
@@ -224,12 +231,15 @@ const sendDataToServer = async (url, method, data) => {
 
 // HTML Element ///////////////////////////////////////////////////////
 function bookElement(data, index) {
+  const publisherName = data.publisher ? data.publisher.name : "";
+  const writerName = data.writer ? data.writer.name : "";
+
   return `<tr class="border-b">
                     <td>${index}</td>
                     <td><a href="${data.img}" target="_blank"><img src="${data.img}" class="w-10 h-15" /></a></td>
                     <td>${data.title}</td>
-                    <td>${data.writer}</td>
-                    <td>${data.publisher}</td>
+                    <td>${writerName}</td>
+                    <td>${publisherName}</td>
                     <td>${data.releaseDate}</td>
                     <td>${data.genre}</td>
                     <td>${data.stock}</td>
@@ -268,11 +278,12 @@ function publisherElement(data, index) {
 function transactionsElement(data, index) {
   let productsList = "";
   data.products.forEach((p) => (productsList += `<li>${p.title}</li>`));
+  const nama = data.orderBy ? data.orderBy.name : "guest";
 
   return `<tr class="border-b">
   <td>${index}</td>
   <td>${data.purchaseDate}</td>
-  <td>${data.orderBy.name}</td>
+  <td>${nama}</td>
   <td class="text-xs text-left">${productsList}</td>
   <td>Rp${data.totalPrice}</td>
   <td>${data.status}</td>
@@ -302,7 +313,18 @@ function usersElement(data, index) {
 }
 
 // Add New Data Element /////////////////////////////////////////////////
-function addBookElement() {
+function addBookElement(data) {
+  let writerList = "";
+  let publisherList = "";
+
+  data.writer.forEach((w) => {
+    writerList += `<option value="${w._id}">${w.name}</option>`;
+  });
+
+  data.publisher.forEach((p) => {
+    publisherList += `<option value="${p._id}">${p.name}</option>`;
+  });
+
   return `<div class="flex gap-4 flex-wrap">
       <div class="flex justify-between w-[420px]">
         <label class="text-slate-600" for="title"
@@ -324,10 +346,7 @@ function addBookElement() {
           id="writer"
         >
           <option value="" selected="selected"></option>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
+          ${writerList}
         </select>
       </div>
       <div class="userInput flex justify-between w-[420px]">
@@ -340,10 +359,7 @@ function addBookElement() {
           id="publisher"
         >
           <option value="" selected="selected"></option>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
+          ${publisherList}
         </select>
       </div>
       <div class="flex justify-between w-[420px]">
@@ -499,7 +515,18 @@ const addPublisherElement = () => {
   </button>`;
 };
 
-const addTranasctionElement = () => {
+const addTranasctionElement = (data) => {
+  let userList = "";
+  let bookList = "";
+
+  data.books.forEach((b) => {
+    bookList += `<option value="${b._id}">${b.title}</option>`;
+  });
+
+  data.users.forEach((u) => {
+    userList += `<option value="${u._id}">${u.name}</option>`;
+  });
+
   return `<div class="flex gap-4 flex-wrap">
   <div class="userInput flex justify-between w-[420px]">
   <label class="text-slate-600" for="orderBy"
@@ -510,11 +537,8 @@ const addTranasctionElement = () => {
     name="orderBy"
     id="orderBy"
   >
-    <option value="" selected="selected"></option>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="opel">Opel</option>
-    <option value="audi">Audi</option>
+    <option value="" selected="selected" disabled></option>
+    ${userList}
   </select>
 </div>
   <div class="userInput flex justify-between w-[420px]">
@@ -526,13 +550,26 @@ const addTranasctionElement = () => {
     name="products"
     id="products"
   >
-    <option value="" selected="selected"></option>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="opel">Opel</option>
-    <option value="audi">Audi</option>
+    <option value="" selected="selected" disabled></option>
+    ${bookList}
   </select>
 </div>
+<div class="userInput flex justify-between w-[420px]">
+  <label class="text-slate-600" for="status"
+    >Status</label
+  >
+  <select
+    class="userInput border rounded py-1 px-2 text-sm w-80"
+    name="status"
+    id="status"
+  >
+    <option value="pending" selected="selected">Pending</option>
+    <option value="proses">Proses</option>
+    <option value="done">Done</option>
+    <option value="canceled">Canceled</option>
+  </select>
+</div>
+
     
   </div>
 
@@ -558,16 +595,20 @@ const addUserElement = () => {
         required
       />
     </div>
-    <div class="flex justify-between w-[420px]">
-      <label class="text-slate-600" for="role">Role<span class="text-red-600">*</span></label>
-      <input
-        class="userInput border rounded py-1 px-2 text-sm w-80"
-        type="text"
-        name="role"
-        id="role"
-        required
-      />
-    </div>
+    <div class="userInput flex justify-between w-[420px]">
+        <label class="text-slate-600" for="role"
+          >Role</label
+        >
+        <select
+          class="userInput border rounded py-1 px-2 text-sm w-80"
+          name="role"
+          id="role"
+        >
+          <option value="" selected="selected"></option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
     <div class="flex justify-between w-[420px]">
       <label class="text-slate-600" for="email"
         >Email<span class="text-red-600">*</span></label

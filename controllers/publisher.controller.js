@@ -68,9 +68,10 @@ module.exports = {
     const publishers = await PublisherModel.findById(req.params.id, "-__v");
 
     try {
-      await PublisherModel.deleteOne({ _id: req.params.id });
+      publishers.deleteOne();
       res.json({
         message: "Data has been deleted",
+        data: publishers,
       });
     } catch (error) {
       console.log(error);
