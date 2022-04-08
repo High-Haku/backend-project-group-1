@@ -1,7 +1,10 @@
 const Books = require("../models/books.model");
 
 const getBookByQuery = async (query) => {
-  const data = await Books.find({ $and: query }, "-__v");
+  const data = await Books.find({ $and: query }, "-__v")
+    .populate("publisher", "name -_id")
+    .populate("writer", "name -_id");
+
   if (data.length === 1) return data[0];
   return data !== undefined ? data : false;
 };
@@ -37,6 +40,9 @@ const searchBookByQuery = async (queries) => {
       q = { [newQueryName]: { $lte: queryValue } };
     } else if (queryName === "price" || queryName === "stock") {
       q = { [queryName]: queryValue };
+      // } else if (queryName === "publisher" || queryName === "writer") {
+      //   const regex = new RegExp(`.*${queryValue}.*`, "gi");
+      //   q = { [queryName + "Name"]: { $regex: regex } };
     } else {
       const regex = new RegExp(`.*${queryValue}.*`, "gi");
       q = { [queryName]: { $regex: regex } };
@@ -49,16 +55,18 @@ const searchBookByQuery = async (queries) => {
 
 module.exports = {
   getAllBooks: async (req, res) => {
-    // Search By Query ////////////////
-    if (Object.keys(req.query).length !== 0) {
-      const queryArray = await searchBookByQuery(req.query);
-      const book = await getBookByQuery(queryArray);
-      if (book) return res.json(book);
-    }
-
-    // Get All Books /////////////////
     try {
-      const books = await Books.find({}, "-__v");
+      // Search By Query ////////////////
+      if (Object.keys(req.query).length !== 0) {
+        const queryArray = await searchBookByQuery(req.query);
+        const book = await getBookByQuery(queryArray);
+        if (book) return res.json(book);
+      }
+
+      // Get All Books /////////////////
+      const books = await Books.find({}, "-__v")
+        .populate("publisher", "name -_id")
+        .populate("writer", "name -_id");
       res.json({
         message: "berhasil menampilkan semua buku",
         data: books,
@@ -83,7 +91,9 @@ module.exports = {
     }
   },
   getById: async (req, res) => {
-    const books = await Books.findById(req.params.id, "-__v");
+    const books = await Books.findById(req.params.id, "-__v")
+      .populate("publisher", "name -_id")
+      .populate("writer", "name -_id");
 
     try {
       res.json({
@@ -110,7 +120,8 @@ module.exports = {
   },
   deleteBooks: async (req, res) => {
     try {
-      await Books.deleteOne({ _id: req.params.id });
+      const book = await Books.findById(req.params.id);
+      book.deleteOne();
       res.json({
         message: "Data has been deleted",
       });

@@ -25,4 +25,8 @@ router.use("/publishers", publisherRouter);
 router.use("/users", usersRouter);
 router.use("/books", booksRouter);
 
+router.get("*", (req, res) => {
+  res.sendStatus(404);
+});
+
 module.exports = router;

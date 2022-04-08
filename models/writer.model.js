@@ -22,5 +22,19 @@ const writerSchema = new mongoose.Schema({
   ],
 });
 
+writerSchema.post(
+  "deleteOne",
+  { document: true, query: false },
+  async (doc) => {
+    const Books = require("./books.model");
+    try {
+      const targetId = doc._id;
+      await Books.updateMany({ writer: targetId }, { writer: null });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const Writers = mongoose.model("writer", writerSchema, "writer");
 module.exports = Writers;
